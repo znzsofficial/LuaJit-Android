@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdk 34
+    buildToolsVersion "34.0.0"
+    namespace "com.eurya.luajit"
+    ndkVersion "24.0.8215888"
 
     defaultConfig {
-        applicationId "com.eurya.luajit"
-        minSdkVersion 19
-        targetSdkVersion 23
-        versionCode 1
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1099
         versionName "1.0"
     }
 
@@ -16,11 +17,32 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a'}
+        }
+        debug {
+            minifyEnabled false
+            ndk {abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a'}
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/android.mk'
+            // path 'src/main/jni/lua/android.mk'
+            // path 'src/main/jni/luajava/android.mk'
+            // path 'src/main/jni/luajit/android.mk'
         }
     }
 }
 
 dependencies {
-	implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    api fileTree(dir: "libs", include: ["*.jar"])
 }
