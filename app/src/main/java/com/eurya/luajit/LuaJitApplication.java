@@ -13,6 +13,10 @@ public class LuaJitApplication extends Application implements LuaContext {
     @Override
     public void onCreate() {
         super.onCreate();
+        
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        // 注册crashHandler
+        crashHandler.init(getApplicationContext());
         luaLibs = getDir("luaLibs", Context.MODE_PRIVATE).getAbsolutePath();
         soLibs = getApplicationInfo().nativeLibraryDir + so;
     }
