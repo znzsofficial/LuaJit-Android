@@ -7,18 +7,19 @@ import android.view.View;
 import android.content.Intent;
 
 public class LuaActivity extends Activity {
-    
-    private EditText code;
-    
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        code = findViewById(R.id.code);
-    }
-    public void run(View view){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("code", code.getEditableText().toString());
-        startActivity(intent);
-    }
+
+  private EditText mEditor;
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    mEditor = findViewById(R.id.mEditor);
+  }
+
+  public void run(View view) {
+    Intent intent = new Intent(this, MainActivity.class);
+    intent.putExtra("code", mEditor.getEditableText().toString());
+    startActivity(intent);
+  }
 }
